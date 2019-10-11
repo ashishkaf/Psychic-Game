@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>The Psychic Game</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <div id="game">
+            <h1>The Psychic Game</h1>
+            <p>Guess what letter I'm thinking of</p>
+            <p>Wins: </p>
+            <p>Losses: </p>
+            <p>Guesses Left: </p>
+            <p>Your Guesses so far: </p>
+        </div>
+        
+        <script type="text/javascript">
+        var wins = 0;
+    var losses = 0;
+    var guessesLeft = 9;
+    // array to push user choices to
+    var guessesSoFar = []; 
+    var computerChoices = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']; //list of letters to choose from
+    document.onkeyup = function(event) {
+        //taking in user guess
+        var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
+        //comp select random letter
+        var computerGuess = computerChoices[Math.floor(Math.random()*computerChoices.length)]; 
+        //pushing user guess to guesses so far
+        guessesSoFar.push(userGuess); 
+        if (userGuess == computerGuess) {
+            wins++;
+            alert('Good Job! You\'ve guesesed corrrectly. You Won!');
+            //reseting the guesses back to 9 so that the user can play again
+            guessesLeft = 9; 
+            //this removes everything from the guesses so far array, so that the guesses from the previous part wont show
+            guessesSoFar.length = 0; 
+        }
+        else if (guessesLeft == 0){
+            losses++;
+            alert('You didn\'t guess the correct letter. You lost. Let\'s try again.');
+            guessesLeft = 9;
+            guessesSoFar.length = 0;
+        }
+        else if (userGuess !== computerGuess){
+            //guesses left
+            guessesLeft--; 
+        }  
+        //psuedo html    
+        var html = "<h1>The Psychic Game</h1>" + 
+        "<p>Guess what letter I'm thinking of</p>" +
+        "<p>Wins: " + 
+        wins + 
+        "</p>" +
+        "<p>Losses: " + 
+        losses + 
+        "</p>" +
+        "<p>Guesses Left: " + 
+        guessesLeft + 
+        "</p>" +
+        "<p>Your Guesses so far: " +
+        guessesSoFar +
+        "</p>"
+        ;
+        document.querySelector('#game').innerHTML = html;
+    }
+        
+        </script>
+    </body>
+</html>
+
+
+
+
